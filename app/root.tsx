@@ -1,10 +1,5 @@
-import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
+import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import "../public/assets/style/root.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -19,6 +14,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
+        <h1>WEJOW</h1>
       </body>
     </html>
   );

@@ -6,8 +6,14 @@
 
 Run the dev server:
 
-```shellscript
+```sh
 npm run dev
+```
+
+When at a new pc:
+
+```sh
+npm 1
 ```
 
 ## Deployment
@@ -23,6 +29,7 @@ Then run the app in production mode:
 ```sh
 npm start
 ```
+
 
 Now you'll need to pick a host to deploy it to.
 
