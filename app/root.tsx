@@ -1,7 +1,11 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
-import "../public/assets/style/root.css";
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from "@remix-run/react";
+import React from "react"; 
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const links = () => {
+  return [{ rel: "stylesheet", href: "../public/assets/style/root.css" }];
+};
+
+function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -14,12 +18,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-        <h1>WEJOW</h1>
+        {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>
   );
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <RootDocument>
+      <Outlet />
+    </RootDocument>
+  );
 }

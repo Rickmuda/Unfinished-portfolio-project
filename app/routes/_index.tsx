@@ -1,18 +1,86 @@
 import type { MetaFunction } from "@remix-run/node";
 import { Link } from "@remix-run/react";
+import { useEffect, useState } from 'react';
+import "../../public/assets/style/index.css";
 
- 
-export const meta: MetaFunction = () => {
-  return [
-    { title: "Title Screen" },
-  ];
-};
+const Quotes = [
+  "Terraria<3",
+  "Bloodborne<3",
+  "Look at this funny little character!",
+  { text: "Also check out Sylvan's work!", link: "https://www.kharua.xyz/" },
+  "Now with some new code!",
+  "Software development!",
+];
 
-export default function Index() {
+function getRandomQuote() {
+  return Quotes[Math.floor(Math.random() * Quotes.length)];
+}
+
+export default function QuotesPage() {
+  const [quote, setQuote] = useState<{ text: string; link: string; }>({ text: "", link: "" }); 
+
+  useEffect(() => {
+    const displayQuote = () => {
+      const newQuote = getRandomQuote();
+      if (typeof newQuote === 'string') {
+        setQuote({ text: newQuote, link: "" }); 
+      } else {
+        setQuote(newQuote); 
+      }
+    };
+
+    displayQuote();
+
+    const intervalId = setInterval(displayQuote, 20000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
+    const logo = document.querySelector('.logo img') as HTMLImageElement;
+    
+    function redirectToNewPage() {
+      if (logo) {
+          // Fade out the logo
+          logo.style.opacity = '0';
+          logo.style.transition = 'opacity 1s';
+      }
+    
+      // After another delay, redirect to another page
+      setTimeout(function() {
+          window.location.href = '/saves'; // Replace with your new page URL
+      }, 1000); // 1000 milliseconds (1 seconds)
+    }
+
+    document.addEventListener('keypress', redirectToNewPage);
+    document.addEventListener('click', redirectToNewPage);
+
+    return () => {
+      document.removeEventListener('keypress', redirectToNewPage);
+      document.removeEventListener('click', redirectToNewPage);
+    };
+  }, []);
+
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Sup cock fuckers</h1>
-      <Link to="saves">Biggiedaggoe</Link>
+    <div>
+      <div className="logo">         
+        <img src="./public/assets/image/rickambergen.gif" alt="Rick Ambergen" />  
+        {quote.link ? (
+          <p className="subtitle">
+            <a href={quote.link} target="_blank" rel="noopener noreferrer">{quote.text}</a>
+          </p>
+        ) : (
+          <p className="subtitle" id="quote">{quote.text}</p>
+        )}
+      </div>   
+
+      <div className="continue blinking-text">
+        <p>PRESS ANYTHING TO CONTINUE</p>
+      </div>
+
+      <div className="copyright">
+        <p>© RICK AMBERGEN <a id="rickvlogs">20</a>02</p>
+      </div>
     </div>
   );
 }

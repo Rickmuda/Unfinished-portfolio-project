@@ -1,0 +1,85 @@
+/* Index page */
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo {
+    margin-top: 50px; 
+  }
+  
+  .logo img {
+    max-width: 40%; 
+    height: auto;
+    opacity: 1;
+    transition: opacity 1s;
+    animation: slowDown 10s steps(10) infinite;
+  }
+  
+  .continue {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 300px;
+    padding: 10px;
+    margin-top: 200px;
+  }
+  
+  .copyright {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 300px;
+    color: white;
+    -webkit-text-stroke: black 1px;
+    font-size: 16px;
+  }
+  
+  @media (max-width: 768px) {
+    .logo {
+      margin-top: 30px; 
+      max-width: 235px;
+    }
+  
+    .continue {
+      margin-top: 100px; 
+    }
+  
+    .copyright {
+      margin-top: 250px; 
+    }
+  }
+
+/* Minecraft type splash text */
+
+.subtitle {
+  position: absolute;
+  font-family: VCR_OSD_MONO_1, sans-serif;
+  color: white;
+  -webkit-text-stroke: #a07cff 0.5px;
+  font-size: 120%;
+  transform: rotate(-15deg);
+  width: 70%;
+  bottom: 580px;
+  animation: subtitle 2s infinite;
+}
+
+@keyframes subtitle {
+  0% {
+    opacity: 1;
+}
+25%{
+    opacity: 0;
+}
+100% {
+    opacity: 1;
+}
+}
+
+/* Character slowdown */
+@keyframes slowDown {
+  0% { background-position: 0 0; }
+  100% { background-position: -2000px 0; }
+}
