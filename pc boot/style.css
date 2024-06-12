@@ -1,0 +1,42 @@
+@font-face {
+  font-family: 'DOS';
+  font-style: normal;
+  font-weight: normal;
+  src: url('https://kristopolous.github.io/BOOTSTRA.386/assets/css/fonts/Fixedsys500c.eot');
+  src: local('â˜º'), url('https://kristopolous.github.io/BOOTSTRA.386/assets/css/fonts/Fixedsys500c.woff') format('woff'), url('https://kristopolous.github.io/BOOTSTRA.386/assets/css/fonts/Fixedsys500c.ttf') format('truetype'), url('https://kristopolous.github.io/BOOTSTRA.386/assets/css/fonts/Fixedsys500c.svg') format('svg');
+}
+
+body {
+  margin: 0;
+  font-family: DOS, monospace, "Courier New";
+  font-size: 18px;
+  color: #AAA;
+  background-color: #000000;
+  overflow: hidden;
+}
+
+.screen640x400 {
+  display: inline-block;
+  position: relative;
+  float: left;
+  width: 640px;
+  height: 400px;
+  overflow: hidden;
+}
+
+PRE {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+@keyframes blink-keyframes {
+  to { visibility: hidden; }
+}
+.blink1 {
+  animation: blink-keyframes 1s steps(5, start) infinite;
+}
+.blink05 {
+  animation: blink-keyframes 0.5s steps(5, start) infinite;
+}
+.blink025 {
+  animation: blink-keyframes 0.25s steps(5, start) infinite;
+}
