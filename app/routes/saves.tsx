@@ -1,6 +1,6 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "@remix-run/react";
-import '../../public/assets/style/saves.css';  // Make sure to import the CSS file
+import "../../public/assets/style/saves.css"; // Make sure to import the CSS file
 
 export default function Saves() {
   const [expandedBlocks, setExpandedBlocks] = useState({
@@ -11,16 +11,16 @@ export default function Saves() {
   });
 
   useEffect(() => {
-    const blocksOrder = ['aboutme', 'projects', 'contact', 'home'];
+    const blocksOrder = ["aboutme", "projects", "contact", "home"];
 
     const openBlockSequentially = (index: number) => {
       if (index >= blocksOrder.length) return;
 
       const blockId = blocksOrder[index];
       setTimeout(() => {
-        setExpandedBlocks(prevState => ({
+        setExpandedBlocks((prevState) => ({
           ...prevState,
-          [blockId]: true
+          [blockId]: true,
         }));
         openBlockSequentially(index + 1);
       }, 300); // Adjust delay as needed
@@ -45,7 +45,12 @@ export default function Saves() {
       >
         <div className="content">
           <h2>ABOUT ME</h2>
-          {expandedBlocks.aboutme && <img src="../../public/assets/image/underconstruction.png" alt="About Me" />}
+          {expandedBlocks.aboutme && (
+            <img
+              src="../../public/assets/image/underconstruction.png"
+              alt="About Me"
+            />
+          )}
         </div>
       </Link>
       <Link
@@ -55,7 +60,12 @@ export default function Saves() {
       >
         <div className="content">
           <h2>PROJECTS</h2>
-          {expandedBlocks.projects && <img src="../../public/assets/image/underconstruction.png" alt="Projects" />}
+          {expandedBlocks.projects && (
+            <img
+              src="../../public/assets/image/underconstruction.png"
+              alt="Projects"
+            />
+          )}
         </div>
       </Link>
       <Link
@@ -65,7 +75,12 @@ export default function Saves() {
       >
         <div className="content">
           <h2>CONTACT</h2>
-          {expandedBlocks.contact && <img src="../../public/assets/image/underconstruction.png" alt="Contact" />}
+          {expandedBlocks.contact && (
+            <img
+              src="../../public/assets/image/underconstruction.png"
+              alt="Contact"
+            />
+          )}
         </div>
       </Link>
       <Link
@@ -75,7 +90,12 @@ export default function Saves() {
       >
         <div className="content">
           <h2>W.I.P.</h2>
-          {expandedBlocks.home && <img src="../../public/assets/image/underconstruction.png" alt="W.I.P." />}
+          {expandedBlocks.home && (
+            <img
+              src="../../public/assets/image/underconstruction.png"
+              alt="W.I.P."
+            />
+          )}
         </div>
       </Link>
     </div>
