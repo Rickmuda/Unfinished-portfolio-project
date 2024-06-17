@@ -10,7 +10,6 @@ class IBMPC {
   protected div: HTMLDivElement;
   protected text: HTMLPreElement;
   protected cursor: HTMLSpanElement;
-  protected beepAudio?: HTMLAudioElement;
   protected bottom?: HTMLSpanElement;
   protected basic: { header: string };
 
@@ -29,7 +28,7 @@ class IBMPC {
     div.style.width = '100%';
     div.style.height = '100%';
     div.style.overflow = 'hidden';
-    div.style.color = '#AAA';
+    div.style.color = '#fff3f3';
     div.style.background = '#000';
     div.style.fontSize = fontSize + 'px';
     div.style.fontFamily = 'DOS, monospace, "Courier New"';
@@ -53,12 +52,7 @@ class IBMPC {
 
   protected bios(): void {
     setTimeout(() => this.beep(), 5000);
-    setTimeout(() => this.boot(), 7000);
-  }
-
-  protected beep(): void {
-    if (!this.beepAudio) this.beepAudio = new Audio(this.bin64beep());
-    this.beepAudio.play();
+    setTimeout(() => this.boot(), 10000);
   }
 
   protected boot(): void {
@@ -112,24 +106,27 @@ class IBMPCat extends IBMPC {
     this.RAM = 0;
     this.timer = undefined; // Initialize timer property explicitly
     this.basic.header = `
-        ______ _      _                          _       
-| ___ (_)    | |                        | |      
-| |_/ /_  ___| | __  _ __ ___  _   _  __| | __ _ 
-|    /| |/ __| |/ / | '_ \` _ \\| | | |/ _\` |/ _\` |
-| |\\ \\| | (__|   <  | | | | | | |_| | (_| | (_| |
-\\_| \\_|_|\\___|_|\\_\\ |_| |_| |_|\\__,_|\\__,_|\\__,_|
-                ______                           
-               |______|                          
+
+    Welcome to 
+      
+
+    ██████  ██  ██████ ██   ██ ███    ███ ██    ██ ██████   █████     ███    ██ ██      
+    ██   ██ ██ ██      ██  ██  ████  ████ ██    ██ ██   ██ ██   ██    ████   ██ ██      
+    ██████  ██ ██      █████   ██ ████ ██ ██    ██ ██   ██ ███████    ██ ██  ██ ██      
+    ██   ██ ██ ██      ██  ██  ██  ██  ██ ██    ██ ██   ██ ██   ██    ██  ██ ██ ██      
+    ██   ██ ██  ██████ ██   ██ ██      ██  ██████  ██████  ██   ██ ██ ██   ████ ███████ 
+                                                                                        
+                                                                                        
+    
     `;
   }
 
   protected bios(): void {
     // Initialize timer with setInterval, TypeScript will infer the type
-    const interval = 185; // Example interval time in milliseconds
+    const interval = 120; // Example interval time in milliseconds
     this.timer = window.setInterval(() => {
       if (this.RAM === 1024) {
         clearInterval(this.timer!);
-        setTimeout(() => this.beep(), 2000);
         setTimeout(() => this.boot(), 2000);
       }
       this.text.innerText = this.RAM + ' KB OK';
@@ -155,13 +152,12 @@ const IBMPCComponent: React.FC<IBMPCProps> = ({ parent }) => {
 
       // Automatically type "OR" after 3 seconds and navigate after typing is done
       setTimeout(() => {
-        ibmpc.text.innerText += 'OR';
         ibmpc.cursor.className = 'blink025'; // Adjust blinking speed if needed
         // Navigate to /saves after typing is done
         setTimeout(() => {
           navigate('/saves');
         }, 7000); // Adjust this timeout based on how long it takes to finish typing
-      }, 7000);
+      }, 15500);
     }
   }, [navigate]);
 
