@@ -17,19 +17,6 @@ body {
   animation: slowDown 10s steps(10) infinite;
 }
 
-.subtitle {
-  position: absolute;
-  font-family: VCR_OSD_MONO_1, sans-serif;
-  color: white;
-  -webkit-text-stroke: #a07cff 0.5px;
-  font-size: 120%;
-  transform: rotate(-15deg);
-  bottom: 10px;
-  right: 320px; /* Move subtitle more to the left */
-  width: auto;
-  animation: subtitle 2s infinite;
-}
-
 .continue {
   position: absolute;
   left: 50%;

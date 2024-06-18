@@ -1,102 +1,172 @@
-import type { MetaFunction } from "@remix-run/node";
-import { useEffect, useState } from 'react';
-import "../../public/assets/style/index.css";
+import React, { useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import '../../public/assets/style/ibmpc.css';
 
-const Quotes = [
-  "Terraria <3",
-  "Bloodborne <3",
-  "Look at this funny little character!",
-  { text: "Also check out Sylvan's work!", link: "https://www.kharua.xyz/" },
-  { text: "Also check out Ryan's work!", link: "https://naamloos.dev" },
-  "Now with some new code!",
-  "Software development!",
-];
-
-function getRandomQuote() {
-  return Quotes[Math.floor(Math.random() * Quotes.length)];
+interface IBMPCProps {
+  parent: HTMLElement;
 }
 
-export default function QuotesPage() {
-  const [quote, setQuote] = useState<{ text: string; link: string; }>({ text: "", link: "" });
+class IBMPC {
+  protected div: HTMLDivElement;
+  protected text: HTMLPreElement;
+  public cursor: HTMLSpanElement;
+  protected bottom?: HTMLSpanElement;
+  protected basic: { header: string };
 
-  useEffect(() => {
-    const displayQuote = () => {
-      const newQuote = getRandomQuote();
-      if (typeof newQuote === 'string') {
-        setQuote({ text: newQuote, link: "" });
-      } else {
-        setQuote(newQuote);
+  constructor(parent: HTMLElement, textCols: number = 80) {
+    const div = document.createElement('div');
+    const text = document.createElement('pre');
+    const cursor = document.createElement('span');
+    let fontSize = 4;
+
+    if (textCols < 81) fontSize = 8;
+    if (textCols < 41) fontSize = 15;
+    cursor.innerHTML = '<b>_</b>';
+    cursor.className = 'blink05';
+    div.style.position = 'absolute';
+    div.style.width = '100%';
+    div.style.height = '100%';
+    div.style.overflow = 'hidden';
+    div.style.color = '#fff3f3';
+    div.style.background = '#000';
+    div.style.fontSize = fontSize + 'px';
+    div.style.fontFamily = 'DOS, monospace, "Courier New"';
+
+    div.appendChild(text);
+    div.appendChild(cursor);
+
+    this.div = div;
+    this.text = text;
+    this.cursor = cursor;
+
+    this.basic = { header: `IBM Personal Computer Basic` };
+
+    parent.appendChild(this.div);
+    setTimeout(() => this.bios(), this.rnd());
+  }
+
+  protected rnd(max: number = 3000): number {
+    return Math.floor(Math.random() * max);
+  }
+
+  protected bios(): void {
+    setTimeout(() => this.boot(), 10000); // Adjusting this value changes the delay before boot starts
+  }
+
+  protected boot(): void {
+    this.basicMethod();
+  }
+
+  protected basicMethod(): void {
+    let header = this.basic.header;
+    const bottom = document.createElement('span');
+
+    bottom.style.position = 'absolute';
+    bottom.style.bottom = '0px';
+    bottom.style.overflow = 'hidden';
+    bottom.style.display = 'block';
+    this.bottom = bottom;
+    this.div.appendChild(this.bottom);
+    this.text.innerText = '';
+
+    const timer = setInterval(() => {
+      if (!header.length) {
+        this.cursor.className = 'blink025';
+        return clearInterval(timer);
       }
-    };
+      this.text.innerText += header.charAt(0);
+      header = header.substr(1);
+    }, 10); // Adjusting this value changes the typing speed of the header
+  }
 
-    displayQuote();
+  public hide(): void {
+    this.div.style.opacity = '0';
+  }
 
-    const intervalId = setInterval(displayQuote, 20000);
+  public show(): void {
+    this.div.style.opacity = '1';
+  }
 
-    return () => clearInterval(intervalId);
-  }, []);
+  protected bin64beep(): string {
+    return `
+      data:audio/mpeg;base64,/+MYxAAMaSrFmUEQAgqqCcgDwAABeP0MYxjGMYwAABf+ACGMYxj//kIQhCTgAgMZQEAQBD3//ggCAPg//BByBmdFIGvg19L/
+      ... (more base64 data)
+    `;
+  }
+}
 
-  useEffect(() => {
-    const logo = document.querySelector('.logo img') as HTMLImageElement;
+class IBMPCat extends IBMPC {
+  private RAM: number;
+  private timer: number | undefined;
 
-    function redirectToNewPage() {
-      if (logo) {
-        // Fade out the logo
-        logo.style.opacity = '0';
-        logo.style.transition = 'opacity 1s';
+  constructor(parent: HTMLElement) {
+    super(parent, 40);
+    this.RAM = 0;
+    this.timer = undefined; // Initialize timer property explicitly
+    this.basic.header = `
+
+    Initialising RICKMUDA.NL
+    Version = 1.0 
+      
+
+    ██████  ██  ██████ ██   ██ ███    ███ ██    ██ ██████   █████     ███    ██ ██      
+    ██   ██ ██ ██      ██  ██  ████  ████ ██    ██ ██   ██ ██   ██    ████   ██ ██      
+    ██████  ██ ██      █████   ██ ████ ██ ██    ██ ██   ██ ███████    ██ ██  ██ ██      
+    ██   ██ ██ ██      ██  ██  ██  ██  ██ ██    ██ ██   ██ ██   ██    ██  ██ ██ ██      
+    ██   ██ ██  ██████ ██   ██ ██      ██  ██████  ██████  ██   ██ ██ ██   ████ ███████ 
+                                                                                        
+    Welcome to RICKMUDA.NL
+    `;
+  }
+
+  protected bios(): void {
+    // Initialize timer with setInterval, TypeScript will infer the type
+    const interval = 120; // Example interval time in milliseconds
+    this.timer = window.setInterval(() => {
+      if (this.RAM === 1024) {
+        clearInterval(this.timer!);
+        setTimeout(() => this.boot(), 2000); // Adjusting this value changes the delay before boot after RAM check is complete
       }
+      this.text.innerText = this.RAM + ' KB OK';
+      this.RAM += 128; // The amount of RAM that is added each interval
+    }, interval); // Adjusting this value changes the speed of RAM check
+  }
 
-      // After another delay, redirect to another page
-      setTimeout(function() {
-        window.location.href = '/IBMPC'; // Replace with your new page URL
-      }, 1000); // 1000 milliseconds (1 seconds)
+  protected basicMethod(): void {
+    super.basicMethod();
+    if (this.bottom) {
+      for (let i = 0; i < 11; i++) this.bottom.removeChild(this.bottom.lastChild!);
     }
+  }
+}
 
-    document.addEventListener('keypress', redirectToNewPage);
-    document.addEventListener('click', redirectToNewPage);
+// eslint-disable-next-line no-empty-pattern
+const IBMPCComponent: React.FC<IBMPCProps> = ({ }) => {
+  const parentRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
-    return () => {
-      document.removeEventListener('keypress', redirectToNewPage);
-      document.removeEventListener('click', redirectToNewPage);
-    };
-  }, []);
+  useEffect(() => {
+    if (parentRef.current) {
+      const ibmpc = new IBMPCat(parentRef.current);
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    window.open(e.currentTarget.href, '_blank', 'noopener,noreferrer');
-  };
-
-  const handleRickVlogsClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    window.location.href = '/rickvlogs'; // Replace with the secret page URL
-  };
+      // Automatically type "OR" after 3 seconds and navigate after typing is done
+      setTimeout(() => {
+        ibmpc.cursor.className = 'blink025'; // Adjust blinking speed if needed
+        // Navigate to /mainscreen after typing is done
+        setTimeout(() => {
+          navigate('/mainscreen');
+        }, 2000); // Adjust this timeout based on how long it takes to finish typing
+      }, 7000); // Adjusting this value changes the delay before typing "OR" and navigation
+    }
+  }, [navigate]);
 
   return (
-    <div>
-      <div className="logo-container">
-        <div className="logo">
-          <img src="./public/assets/image/rickambergen.gif" alt="Rick Ambergen" />
-        </div>
-        {quote.link ? (
-          <p className="subtitle">
-            <a href={quote.link} target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>
-              {quote.text}
-            </a>
-          </p>
-        ) : (
-          <p className="subtitle" id="quote">{quote.text}</p>
-        )}
-      </div>
-
-      <div className="continue blinking-text">
-        <p>PRESS ANYTHING TO CONTINUE</p>
-      </div>
-
-      <div className="copyright">
-        <p>© RICK AMBERGEN <a id="rickvlogs" href="/rickvlogs" onClick={handleRickVlogsClick} style={{ cursor: 'text', textDecoration: 'none', color: 'inherit' }}>20</a>02</p>
-      </div>
+    <div ref={parentRef} className="screen640x400" style={{ position: 'relative', height: '100vh', width: '100vw', backgroundColor: '#000' }}>
+      <Link to="/mainscreen" className="buttonLeft" style={{ position: 'absolute', top: '10px', left: '10px', padding: '10px 20px', backgroundColor: '#fff', color: '#000', textDecoration: 'none', borderRadius: '5px' }}>
+        Go to Main Screen
+      </Link>
     </div>
   );
-}
+};
+
+export default IBMPCComponent;
