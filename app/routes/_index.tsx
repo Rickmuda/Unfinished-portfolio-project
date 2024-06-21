@@ -72,11 +72,18 @@ class IBMPC {
     const timer = setInterval(() => {
       if (!header.length) {
         this.cursor.className = 'blink025';
-        return clearInterval(timer);
+        clearInterval(timer);
+        // When typing is done, trigger an event or call a callback here
+        this.onTypingComplete();
+        return;
       }
       this.text.innerText += header.charAt(0);
       header = header.substr(1);
     }, 10); // Adjusting this value changes the typing speed of the header
+  }
+
+  protected onTypingComplete(): void {
+    // Placeholder for the typing complete action
   }
 
   public hide(): void {
@@ -98,11 +105,13 @@ class IBMPC {
 class IBMPCat extends IBMPC {
   private RAM: number;
   private timer: number | undefined;
+  private navigateCallback?: () => void; // Optional callback for navigation
 
-  constructor(parent: HTMLElement) {
+  constructor(parent: HTMLElement, navigateCallback?: () => void) {
     super(parent, 40);
     this.RAM = 0;
     this.timer = undefined; // Initialize timer property explicitly
+    this.navigateCallback = navigateCallback; // Store the navigation callback
     this.basic.header = `
 
     Initialising RICKMUDA.NL
@@ -138,6 +147,12 @@ class IBMPCat extends IBMPC {
       for (let i = 0; i < 11; i++) this.bottom.removeChild(this.bottom.lastChild!);
     }
   }
+
+  protected onTypingComplete(): void {
+    if (this.navigateCallback) {
+      setTimeout(this.navigateCallback, 2000); // Call navigate callback 2 seconds after typing is complete
+    }
+  }
 }
 
 // eslint-disable-next-line no-empty-pattern
@@ -147,16 +162,14 @@ const IBMPCComponent: React.FC<IBMPCProps> = ({ }) => {
 
   useEffect(() => {
     if (parentRef.current) {
-      const ibmpc = new IBMPCat(parentRef.current);
+      const ibmpc = new IBMPCat(parentRef.current, () => {
+        navigate('/mainscreen');
+      });
 
       // Automatically type "OR" after 3 seconds and navigate after typing is done
       setTimeout(() => {
         ibmpc.cursor.className = 'blink025'; // Adjust blinking speed if needed
-        // Navigate to /mainscreen after typing is done
-        setTimeout(() => {
-          navigate('/mainscreen');
-        }, 2000); // Adjust this timeout based on how long it takes to finish typing
-      }, 7000); // Adjusting this value changes the delay before typing "OR" and navigation
+      }, 7000); // Adjusting this value changes the delay before changing the cursor blink speed
     }
   }, [navigate]);
 

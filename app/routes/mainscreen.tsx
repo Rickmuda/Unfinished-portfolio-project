@@ -16,8 +16,12 @@ export default function QuotesPage() {
       // After another delay, redirect to another page
       setTimeout(function() {
         window.location.href = '/saves'; // Replace with your new page URL
-      }, 1000); // 1000 milliseconds (1 seconds)
+      }, 1000); // 1000 milliseconds (1 second)
     }
+
+    // Add event listeners for keypress and click
+    document.addEventListener('keypress', redirectToNewPage);
+    document.addEventListener('click', redirectToNewPage);
 
     return () => {
       document.removeEventListener('keypress', redirectToNewPage);

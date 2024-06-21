@@ -11,13 +11,17 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@prisma/client": "^5.15.0",
+    "@prisma/client": "^5.15.1",
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",
+    "@types/node": "^20.14.5",
+    "esbuild-register": "^3.5.0",
     "isbot": "^4.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "remix": "^2.9.2",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.9.2",
@@ -31,8 +35,9 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prisma": "^5.15.0",
-    "typescript": "^5.1.6",
+    "prisma": "^5.15.1",
+    "tsx": "^4.15.7",
+    "typescript": "^5.5.2",
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
   },
