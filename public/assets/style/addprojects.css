@@ -1,0 +1,77 @@
+/* public/assets/style/addprojects.css */
+
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .add-projects-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 8px;
+    background-color: #2c2c2a;
+    box-shadow: 0 4px 6px rgba(0, 0, 0.5, 0.5);
+  }
+  
+  h1 {
+    text-align: center;
+    color: #fff3f3;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #fff3f3;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  textarea,
+  input[type="file"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  textarea {
+    resize: vertical;
+    height: 100px;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #cccccc;
+  }
+  
+  .preview {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .preview img {
+    max-width: 100%;
+    max-height: 200px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    margin-top: 10px;
+  }
+  

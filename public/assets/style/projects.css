@@ -1,0 +1,23 @@
+/* app/styles/projects.css */
+
+.projects-container {
+    padding: 20px;
+  }
+  
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .project-card {
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  .project-image {
+    width: 350px;
+    height: auto;
+    cursor: pointer;
+  }
+  
