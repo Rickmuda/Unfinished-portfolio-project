@@ -5,18 +5,18 @@ export default function Saves() {
   return (
     <div className="container">
       <div className="buttons">
-        <Link to="/aboutme" className="button">
+        <a href="/aboutme" className="button">
           ABOUT ME
-        </Link>
-        <Link to="/projects" className="button">
+        </a>
+        <a href="/projects" className="button">
           PROJECTS
-        </Link>
-        <Link to="/contact" className="button">
+        </a>
+        <a href="/contact" className="button">
           CONTACT
-        </Link>
-        <Link to="/" className="button">
+        </a>
+        <a href="/" className="button">
           W.I.P.
-        </Link>
+        </a>
       </div>
       <div className="image-container">
         <img
