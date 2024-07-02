@@ -1,12 +1,18 @@
 import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData, Link } from '@remix-run/react';
-import { prisma } from '../../prisma/prismaClient';
-import styles from '../../public/assets/style/projects.css';
+import { prisma } from '../../prisma/prismaClient'; // Updated relative path
+import { getSession } from '../session'; // Updated relative path
 
-export const loader: LoaderFunction = async () => {
+import styles from "../../public/assets/style/projects.css";
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get('Cookie'));
+  const user = session.get('user');
+
   const projects = await prisma.projects.findMany();
-  return json({ projects });
+
+  return json({ projects, user });
 };
 
 export function links() {
@@ -14,14 +20,19 @@ export function links() {
 }
 
 export default function Projects() {
-  const { projects } = useLoaderData<{ projects: { id: number; name: string; img: string }[] }>();
+  const { projects, user } = useLoaderData<{ projects: { id: number; name: string; img: string }[], user: { email: string, isAdmin: boolean } }>();
+
+  const isUser = user && user.email === "your-email@example.com"; // Replace with your email
+  const isAdmin = user && user.isAdmin;
 
   return (
     <div className="projects-container">
       <h1>Projects</h1>
-      <Link to="/addprojects">
-        <button>Add New Project</button>
-      </Link>
+      {(isUser || isAdmin) && (
+        <Link to="/addprojects">
+          <button>Add New Project</button>
+        </Link>
+      )}
       <div className="projects-grid">
         {projects.map((project) => (
           <div key={project.id} className="project-card">

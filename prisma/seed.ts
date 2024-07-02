@@ -4,7 +4,7 @@ const seedData = [
     {
       id: 1,
       username: "rick_muda",
-      password: "password",
+      password: "Rick23042002",
       email: "rickambergen25@gmail.com",
       is_admin: 1
     }

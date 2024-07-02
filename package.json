@@ -32,7 +32,7 @@
   "devDependencies": {
     "@remix-run/dev": "^2.9.2",
     "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.2.7",
+    "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "eslint": "^8.38.0",
@@ -43,7 +43,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "prisma": "^5.15.1",
     "tsx": "^4.15.7",
-    "typescript": "^5.5.2",
+    "typescript": "^5.5.3",
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
   },

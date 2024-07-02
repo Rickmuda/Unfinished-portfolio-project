@@ -1,6 +1,19 @@
+import { LoaderFunction, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { getSession } from "../session";
 import "../../public/assets/style/saves.css"; // Make sure to import the CSS file
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+  const user = session.get("user");
+  console.log('User session in loader:', user); // Debug log
+  return json({ user });
+};
+
 export default function Saves() {
+  const { user } = useLoaderData<{ user: { email: string; isAdmin: boolean } | null }>();
+  console.log('User data in component:', user); // Debug log
+
   return (
     <div className="container">
       <div className="buttons">
@@ -23,6 +36,15 @@ export default function Saves() {
           alt="Placeholder"
         />
       </div>
+      {!user ? (
+        <a href="/login" className="auth-link">
+          Login
+        </a>
+      ) : (
+        <a href="/logout" className="auth-link">
+          Logout
+        </a>
+      )}
     </div>
   );
 }

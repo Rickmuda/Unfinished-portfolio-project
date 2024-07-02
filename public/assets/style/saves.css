@@ -14,6 +14,7 @@ body {
   justify-content: center;
   height: 100vh;
   padding: 20px;
+  position: relative; /* Position the auth link relative to the container */
 }
 
 .buttons {
@@ -47,4 +48,19 @@ body {
 .image-container img {
   max-width: 300px;
   max-height: 300px;
+}
+
+/* Styles for the auth link */
+.auth-link {
+  position: absolute;
+  bottom: 50px;
+  left: 30px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  z-index: 10;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
 }

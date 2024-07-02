@@ -1,0 +1,94 @@
+/* Character Image */
+.character {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  #character-image {
+    max-width: 100%;
+    width: 500px;
+    height: auto;
+    border: 5px solid #a07cff;
+    background-color: #fff3f3;
+  }
+  
+  /* Text Box */
+  #text-box {
+    padding: 10px;
+    width: 75%;
+    max-height: 200px;
+    white-space: normal;
+    word-wrap: break-word;
+    margin: 0 auto 30px;
+    border: none;
+    overflow-y: hidden;
+    font-size: 25px;
+    color: #fff3f3;
+    -webkit-text-stroke: 0.5px;
+    -webkit-text-stroke-color: #a07cff;
+  }
+  
+  #image2 {
+    width: 200px;
+    height: auto;
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 75%;
+  }
+  
+  #cvLink {
+    display: inline-block;
+    width: 200px;
+    height: auto;
+    position: absolute;
+    top: 30%; /* Adjust the top position to match #image2 */
+    left: 65%; /* Adjust the left position to match #image2 */
+    z-index: 1; /* Ensure #cvLink is in front of #image2 */
+  }
+  
+  /* CSS Animation: Spin Image */
+  @keyframes spin {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+  
+  .spin {
+    animation: spin 5s infinite linear;
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    font-family: VCR_OSD_MONO_1;
+    color: #fff3f3;
+    -webkit-text-stroke: #a07cff 0.5px;
+    display: block;
+    text-align: center;
+  }
+  
+  /* Navigation Arrows */
+  .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .arrow {
+    cursor: pointer;
+    font-size: 30px;
+    margin: 0 20px;
+    color: #fff3f3;
+    -webkit-text-stroke: 0.5px;
+    -webkit-text-stroke-color: #a07cff;
+  }
+  
