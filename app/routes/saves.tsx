@@ -1,4 +1,3 @@
-import { Link } from "@remix-run/react";
 import "../../public/assets/style/saves.css"; // Make sure to import the CSS file
 
 export default function Saves() {
