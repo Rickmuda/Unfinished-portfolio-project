@@ -1,11 +1,10 @@
-// app/routes/projectdetails.$id.tsx
-
-import React, { useState, useEffect } from 'react';
-import type { LoaderFunction } from '@remix-run/node';
-import { json } from '@remix-run/node';
-import { useLoaderData } from '@remix-run/react';
+import { useState, useEffect } from 'react';
+import type { LoaderFunction, ActionFunction } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
+import { useLoaderData, Form } from '@remix-run/react';
 import { prisma } from '../../prisma/prismaClient';
 
+// Loader function to fetch project details
 export const loader: LoaderFunction = async ({ params }) => {
   const projectId = params.id;
 
@@ -29,18 +28,42 @@ export const loader: LoaderFunction = async ({ params }) => {
   return json({ project });
 };
 
+// Action function to handle project deletion
+export const action: ActionFunction = async ({ request, params }) => {
+  const formData = await request.formData();
+  const actionType = formData.get('_action');
+
+  if (actionType === 'delete') {
+    const projectId = params.id;
+    if (!projectId) return new Response('Not Found', { status: 404 });
+
+    const parsedId = parseInt(projectId, 10);
+    if (isNaN(parsedId)) {
+      return new Response('Invalid ID', { status: 400 });
+    }
+
+    await prisma.projects.delete({
+      where: { id: parsedId },
+    });
+
+    return redirect('/projects'); // Adjust the redirect URL as necessary
+  }
+};
+
+// React component for project details
 export default function ProjectDetails() {
   const { project } = useLoaderData<{
     project: { id: number; name: string; img: string; gif?: string; description: string };
   }>();
 
-  const images = project.img.split(',').map((image) => image.trim()); // Ensure each image path is trimmed
+  const images = project.img.split(',').map((image) => image.trim());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const galleryImages = project.gif ? [project.gif, ...images] : images;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    console.log('Gallery Images:', galleryImages); // Add this line
+    console.log('Gallery Images:', galleryImages);
     console.log('Current Image Index:', currentIndex);
     console.log('Current Image:', galleryImages[currentIndex]);
   }, [currentIndex, galleryImages]);
@@ -66,10 +89,16 @@ export default function ProjectDetails() {
         </button>
       </div>
       <p>{project.description}</p>
+      <Form method="post">
+        <button type="submit" name="_action" value="delete" className="delete-button">
+          Delete Project
+        </button>
+      </Form>
     </div>
   );
 }
 
+// Styling links for the page
 export function links() {
   return [{ rel: 'stylesheet', href: '/assets/style/projectdetails.css' }];
 }

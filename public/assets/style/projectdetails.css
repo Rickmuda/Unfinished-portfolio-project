@@ -24,10 +24,11 @@ body, html {
 }
 
 .gallery-container img {
-  width: 400px; /* Fixed width */
-  height: 300px; /* Fixed height */
+  max-width: 750px; /* Fixed width */
+  maxc-height: 400px; /* Fixed height */
   object-fit: cover; /* Ensures images are properly fitted within the given dimensions */
   border-radius: 8px;
+  position: relative;
 }
 
 .gallery-button {
@@ -54,4 +55,13 @@ p {
   color: #fff3f3;
   font-size: 30px;
   -webkit-text-stroke: #a07cff 0.5px;
+}
+
+.delete-button {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
 }
