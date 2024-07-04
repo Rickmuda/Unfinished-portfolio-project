@@ -13,6 +13,7 @@ model projects {
   category    String @db.VarChar(100)
   description String @db.Text
   img         String @db.VarChar(255)
+  cover    String @db.VarChar(255)
   gif         String @db.VarChar(255)
   path        String @db.VarChar(255)
   createdAt DateTime @default(now())
@@ -24,4 +25,16 @@ model users {
   password String @db.VarChar(255)
   email    String @unique(map: "email") @db.VarChar(255)
   is_admin Int    @default(0) @db.TinyInt
+}
+
+model wip {
+  id          Int    @id @default(autoincrement())
+  name        String @db.VarChar(255)
+  category    String @db.VarChar(100)
+  description String @db.Text
+  img         String @db.VarChar(255)
+  cover    String @db.VarChar(255)
+  gif         String @db.VarChar(255)
+  path        String @db.VarChar(255)
+  createdAt DateTime @default(now())
 }
