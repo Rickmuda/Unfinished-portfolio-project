@@ -23,12 +23,13 @@ export default function Saves() {
         <a href="/projects" className="button">
           PROJECTS
         </a>
+        <a href="/wip" className="button">
+          W.I.P.
+        </a>
         <a href="/contact" className="button">
           CONTACT
         </a>
-        <a href="/" className="button">
-          W.I.P.
-        </a>
+
       </div>
       <div className="image-container">
         <img
@@ -37,11 +38,11 @@ export default function Saves() {
         />
       </div>
       {!user ? (
-        <a href="/login" className="auth-link">
+        <a href="login" className="auth-link">
           Login
         </a>
       ) : (
-        <a href="/logout" className="auth-link">
+        <a href="logout" className="auth-link">
           Logout
         </a>
       )}
