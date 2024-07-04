@@ -59,7 +59,6 @@ body {
 
 .image-container img {
   max-width: 100%; /* Responsive image */
-  border-radius: 10px;
   margin-bottom: 10px; /* Space between image and text */
 }
 

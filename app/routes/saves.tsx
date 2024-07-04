@@ -45,7 +45,7 @@ export default function Saves() {
             src="../../public/assets/image/me.gif"
             alt="Placeholder"
           />
-          <p className="hovered-text">{lastHoveredButton || '-'}</p>
+          <p className="hovered-text">{lastHoveredButton || ''}</p>
         </div>
       </div>
       <div className="auth-link-container">
