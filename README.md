@@ -41,3 +41,13 @@ Make sure to deploy the output of `npm run build`
 
 - `build/server`
 - `build/client`
+
+#### When worked on on different device then last commit
+
+npm i
+
+npx prisma migrate dev
+
+npm run seed
+
+npm run dev
