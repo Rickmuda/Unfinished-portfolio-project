@@ -123,8 +123,6 @@ class IBMPCat extends IBMPC {
     ██████  ██ ██      █████   ██ ████ ██ ██    ██ ██   ██ ███████    ██ ██  ██ ██      
     ██   ██ ██ ██      ██  ██  ██  ██  ██ ██    ██ ██   ██ ██   ██    ██  ██ ██ ██      
     ██   ██ ██  ██████ ██   ██ ██      ██  ██████  ██████  ██   ██ ██ ██   ████ ███████ 
-                                                                                        
-    Welcome to RICKMUDA.NL
     `;
   }
 
@@ -169,7 +167,7 @@ const IBMPCComponent: React.FC<IBMPCProps> = ({ }) => {
       // Automatically type "OR" after 3 seconds and navigate after typing is done
       setTimeout(() => {
         ibmpc.cursor.className = 'blink025'; // Adjust blinking speed if needed
-      }, 7000); // Adjusting this value changes the delay before changing the cursor blink speed
+      }, 5000); // Adjusting this value changes the delay before changing the cursor blink speed
     }
   }, [navigate]);
 
