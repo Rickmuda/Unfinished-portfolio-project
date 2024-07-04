@@ -1,4 +1,4 @@
-// app/routes/projectdetails.$id.tsx
+// app/routes/wipdetails.$id.tsx
 
 import React, { useState, useEffect } from 'react';
 import type { LoaderFunction } from '@remix-run/node';
@@ -7,35 +7,35 @@ import { useLoaderData } from '@remix-run/react';
 import { prisma } from '../../prisma/prismaClient';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const projectId = params.id;
+  const wipId = params.id;
 
-  if (!projectId) {
+  if (!wipId) {
     throw new Response('Not Found', { status: 404 });
   }
 
-  const parsedId = parseInt(projectId, 10);
+  const parsedId = parseInt(wipId, 10);
   if (isNaN(parsedId)) {
     throw new Response('Invalid ID', { status: 400 });
   }
 
-  const project = await prisma.projects.findUnique({
+  const wip = await prisma.wip.findUnique({
     where: { id: parsedId },
   });
 
-  if (!project) {
+  if (!wip) {
     throw new Response('Not Found', { status: 404 });
   }
 
-  return json({ project });
+  return json({ wip });
 };
 
-export default function ProjectDetails() {
-  const { project } = useLoaderData<{
-    project: { id: number; name: string; img: string; gif?: string; description: string };
+export default function WipDetails() {
+  const { wip } = useLoaderData<{
+    wip: { id: number; name: string; img: string; gif?: string; description: string };
   }>();
 
-  const images = project.img.split(',').map((image) => image.trim()); // Ensure each image path is trimmed
-  const galleryImages = project.gif ? [project.gif, ...images] : images;
+  const images = wip.img.split(',').map((image) => image.trim()); // Ensure each image path is trimmed
+  const galleryImages = wip.gif ? [wip.gif, ...images] : images;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -55,17 +55,17 @@ export default function ProjectDetails() {
 
   return (
     <div className="project-details-container">
-      <h1>{project.name}</h1>
+      <h1>{wip.name}</h1>
       <div className="gallery-container">
         <button onClick={handlePrev} className="gallery-button left">
           &lt;
         </button>
-        <img src={`/uploads/${galleryImages[currentIndex]}`} alt={project.name} />
+        <img src={`/uploads/${galleryImages[currentIndex]}`} alt={wip.name} />
         <button onClick={handleNext} className="gallery-button right">
           &gt;
         </button>
       </div>
-      <p>{project.description}</p>
+      <p>{wip.description}</p>
     </div>
   );
 }

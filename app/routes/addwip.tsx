@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/img-redundant-alt */
-// app/routes/addprojects.tsx
+// app/routes/addwip.tsx
 
 import React, { useState } from 'react';
 import type { ActionFunction } from '@remix-run/node';
@@ -40,7 +40,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   fs.writeFileSync(gifPath, Buffer.from(await gif.arrayBuffer()));
 
-  await prisma.projects.create({
+  await prisma.wip.create({
     data: {
       name,
       category,
@@ -52,14 +52,14 @@ export const action: ActionFunction = async ({ request }) => {
     },
   });
 
-  return redirect('/projects');
+  return redirect('/wip');
 };
 
 export function links() {
   return [{ rel: 'stylesheet', href: styles }];
 }
 
-export default function AddProjects() {
+export default function AddWip() {
   const [imgPreviews, setImgPreviews] = useState<(string | ArrayBuffer | null)[]>([null, null, null, null, null]);
   const [gifPreview, setGifPreview] = useState<string | ArrayBuffer | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -148,7 +148,7 @@ export default function AddProjects() {
           </label>
         </div>
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Adding...' : 'Add Project'}
+          {isSubmitting ? 'Adding...' : 'Add W.I.P.'}
         </button>
       </Form>
     </div>

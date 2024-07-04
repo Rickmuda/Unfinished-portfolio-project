@@ -19,7 +19,7 @@ body {
   a {
     text-decoration: none;
     color: #fff3f3;
-    -webkit-text-stroke: #a07cff 0.5px;
+    -webkit-text-stroke: #0a0123 0.5px;
   }
   
   /* Text */
@@ -75,7 +75,6 @@ body {
     margin-top: 30px;
     overflow: hidden;
   }
-  
   
   /* "Return" Link */
   .custom-text a {

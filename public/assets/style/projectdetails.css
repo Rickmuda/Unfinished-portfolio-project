@@ -1,0 +1,57 @@
+/* public/assets/style/projectdetails.css */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent scrolling */
+  background-color: #2c2c2a;
+}
+
+.project-details-container {
+  max-width: 80%;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff3f331;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.gallery-container img {
+  width: 400px; /* Fixed width */
+  height: 300px; /* Fixed height */
+  object-fit: cover; /* Ensures images are properly fitted within the given dimensions */
+  border-radius: 8px;
+}
+
+.gallery-button {
+  background: none;
+  border: none;
+  font-size: 36px;
+  cursor: pointer;
+  color: #fff3f3;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+}
+
+.gallery-button.left {
+  left: 0;
+}
+
+.gallery-button.right {
+  right: 0;
+}
+
+p {
+  color: #fff3f3;
+  font-size: 30px;
+  -webkit-text-stroke: #a07cff 0.5px;
+}

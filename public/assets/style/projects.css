@@ -1,23 +1,63 @@
-/* app/styles/projects.css */
+/* public/assets/style/projects.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  color: #fff3f3;
+  font-size: 50px;
+  -webkit-text-stroke: #a07cff 0.2px;
+  font-family: VCR_OSD_MONO_1, sans-serif;
+  text-align: center;
+}
 
 .projects-container {
-    padding: 20px;
-  }
-  
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  
-  .project-card {
-    padding: 10px;
-    border-radius: 8px;
-  }
-  
-  .project-image {
-    width: 350px;
-    height: auto;
-    cursor: pointer;
-  }
-  
+  padding: 20px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.project-card {
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.project-image-container {
+  position: relative;
+  width: 100%;
+  padding-top: 50%; /* 4:3 Aspect Ratio */
+  overflow: hidden;
+}
+
+.project-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.button {
+  background-color: #fff3f331; /* Light yellow with some transparency */
+  text-decoration: none;
+  width: 200px; /* Width of the button */
+  height: 50px; /* Height of the button */
+  border: 3px solid #A07CFF; /* Light purple */
+  color: #fff3f3; /* Text color */
+  font-size: 20px; /* Font size */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: VCR_OSD_MONO_1, sans-serif;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: #fff3f360;
+  border: 2px solid #895ffc;
+  transform: scale(1.05);
+}
+
+

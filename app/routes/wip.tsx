@@ -1,43 +1,44 @@
+import { PrismaClient } from '@prisma/client'; // Ensure correct path to Prisma client
+import { getSession } from '../session'; // Ensure correct path to session handling
 import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData, Link } from '@remix-run/react';
-import { prisma } from '../../prisma/prismaClient';
-import { getSession } from '../session';
 
 import styles from "../../public/assets/style/projects.css";
+
+const prisma = new PrismaClient(); // Initialize Prisma client
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get('Cookie'));
   const user = session.get('user');
 
-  const projects = await prisma.projects.findMany();
+  const wipProjects = await prisma.wip.findMany();
 
-  return json({ projects, user });
+  return json({ wipProjects, user });
 };
 
 export function links() {
   return [{ rel: 'stylesheet', href: styles }];
 }
 
-export default function Projects() {
-  const { projects, user } = useLoaderData<{ projects: { id: number; name: string; cover: string; gif: string }[], user: { email: string, isAdmin: boolean } }>();
+export default function WipProjects() {
+  const { wipProjects, user } = useLoaderData<{ wipProjects: { id: number; name: string; cover: string }[], user: { email: string, isAdmin: boolean } }>();
 
-  const isAuthenticated = user !== undefined;
-  const isUser = isAuthenticated && user.email === "your-email@example.com"; // Replace with your email
-  const isAdmin = isAuthenticated && user.isAdmin;
+  const isUser = user && user.email === "your-email@example.com"; // Replace with your email
+  const isAdmin = user && user.isAdmin;
 
   return (
     <div className="projects-container">
-      <h1>Projects</h1>
-      {isAuthenticated && (isUser || isAdmin) && (
-        <Link to="/addprojects">
-          <button className='button'>Add New Project</button>
+      <h1>WORK IN PROGRESS</h1>
+      {(isUser || isAdmin) && (
+        <Link to="/addwip">
+          <button className='button'>Add New W.I.P.</button>
         </Link>
       )}
       <div className="projects-grid">
-        {projects.map((project) => (
+        {wipProjects.map((project) => (
           <div key={project.id} className="project-card">
-            <Link to={`/projectdetails/${project.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to={`/wipdetails/${project.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
               <h2>{project.name}</h2>
               <div className="project-image-container">
                 <img
