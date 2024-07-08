@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 const seedData = [
   {
     username: 'rick_muda',
-    password: 'Rick23042002',
+    password: 'M08B@DKhZU9V',
     email: 'rickambergen25@gmail.com',
     is_admin: 1,
   },
