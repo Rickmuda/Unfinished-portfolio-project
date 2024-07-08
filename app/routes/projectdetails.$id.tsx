@@ -9,12 +9,12 @@ export const loader: LoaderFunction = async ({ params }) => {
   const projectId = params.id;
 
   if (!projectId) {
-    throw new Response('Not Found', { status: 404 });
+    return redirect("/projects");
   }
 
   const parsedId = parseInt(projectId, 10);
   if (isNaN(parsedId)) {
-    throw new Response('Invalid ID', { status: 400 });
+    throw new Response("Invalid ID", { status: 400 });
   }
 
   const project = await prisma.projects.findUnique({
@@ -22,7 +22,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   });
 
   if (!project) {
-    throw new Response('Not Found', { status: 404 });
+    return redirect("/projects");
   }
 
   return json({ project });
@@ -31,49 +31,67 @@ export const loader: LoaderFunction = async ({ params }) => {
 // Action function to handle project deletion
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData();
-  const actionType = formData.get('_action');
+  const actionType = formData.get("actionType");
 
-  if (actionType === 'delete') {
+  console.log(actionType, formData);
+  // return null;
+
+  if (actionType === "delete") {
     const projectId = params.id;
-    if (!projectId) return new Response('Not Found', { status: 404 });
+    if (!projectId) return redirect("/projects");
 
     const parsedId = parseInt(projectId, 10);
     if (isNaN(parsedId)) {
-      return new Response('Invalid ID', { status: 400 });
+      return new Response("Invalid ID", { status: 400 });
     }
 
     await prisma.projects.delete({
       where: { id: parsedId },
     });
-
-    return redirect('/projects'); // Adjust the redirect URL as necessary
+    console.log("Project deleted successfully!");
+    // Adjust the redirect URL as necessary
+    return redirect("/projects", {
+      status: 303,
+      headers: { Location: "/projects" },
+    });
   }
+  return redirect("/wip");
 };
 
 // React component for project details
 export default function ProjectDetails() {
   const { project } = useLoaderData<{
-    project: { id: number; name: string; img: string; gif?: string; description: string };
+    project: {
+      id: number;
+      name: string;
+      img: string;
+      gif?: string;
+      description: string;
+    };
   }>();
 
-  const images = project.img.split(',').map((image) => image.trim());
+  const images = project.img.split(",").map((image) => image.trim());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const galleryImages = project.gif ? [project.gif, ...images] : images;
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    console.log('Gallery Images:', galleryImages);
-    console.log('Current Image Index:', currentIndex);
-    console.log('Current Image:', galleryImages[currentIndex]);
+    // console.log("Gallery Images:", galleryImages);
+    // console.log("Current Image Index:", currentIndex);
+    // console.log("Current Image:", galleryImages[currentIndex]);
   }, [currentIndex, galleryImages]);
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? galleryImages.length - 1 : prevIndex - 1));
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? galleryImages.length - 1 : prevIndex - 1
+    );
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex === galleryImages.length - 1 ? 0 : prevIndex + 1));
+    setCurrentIndex((prevIndex) =>
+      prevIndex === galleryImages.length - 1 ? 0 : prevIndex + 1
+    );
   };
 
   return (
@@ -83,14 +101,22 @@ export default function ProjectDetails() {
         <button onClick={handlePrev} className="gallery-button left">
           &lt;
         </button>
-        <img src={`/uploads/${galleryImages[currentIndex]}`} alt={project.name} />
+        <img
+          src={`/uploads/${galleryImages[currentIndex]}`}
+          alt={project.name}
+        />
         <button onClick={handleNext} className="gallery-button right">
           &gt;
         </button>
       </div>
       <p>{project.description}</p>
-      <Form method="post">
-        <button type="submit" name="_action" value="delete" className="delete-button">
+      <Form
+        method="post"
+        action={`/projectdetails/${project.id}`}
+        // onSubmit={(e) => console.log(e)}
+      >
+        <input type="hidden" name="actionType" value="delete" />
+        <button type="submit" value="delete" className="delete-button">
           Delete Project
         </button>
       </Form>

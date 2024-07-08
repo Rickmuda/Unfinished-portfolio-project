@@ -31,13 +31,16 @@ export default function Projects() {
       <h1>Projects</h1>
       {isAuthenticated && (isUser || isAdmin) && (
         <Link to="/addprojects">
-          <button className='button'>Add New Project</button>
+          <button className="button">Add New Project</button>
         </Link>
       )}
       <div className="projects-grid">
         {projects.map((project) => (
           <div key={project.id} className="project-card">
-            <Link to={`/projectdetails/${project.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link
+              to={`/projectdetails/${project.id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
               <h2>{project.name}</h2>
               <div className="project-image-container">
                 <img
