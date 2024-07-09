@@ -1,14 +1,16 @@
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from "@remix-run/react";
+import { Links,useNavigate, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from "@remix-run/react";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { useNavigate } from "@remix-run/react";
 
 export const links = () => {
-  return [{ rel: "stylesheet", href: "../public/assets/style/root.css" }];
+  return [{ rel: "stylesheet", href: "/assets/style/root.css" }];
 };
 
-const ExclusionContext = createContext({
+const ExclusionContext = createContext<{
+  exclude: boolean;
+  setExclude: React.Dispatch<React.SetStateAction<boolean>>;
+}>({
   exclude: false,
-  setExclude: (exclude: boolean) => {}
+  setExclude: () => {}
 });
 
 const useExclusion = () => {
