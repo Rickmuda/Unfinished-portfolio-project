@@ -8,7 +8,6 @@
 
 body {
   margin: 0;
-  font-family: DOS, monospace, "Courier New";
   font-size: 18px;
   color: #fff3f3;
   overflow: hidden;
@@ -55,7 +54,7 @@ pre {
   background-color: #444;
   color: #fff;
   text-decoration: none;
-  font-family: DOS, monospace, "Courier New";
+  font-family: DOS;
   font-size: 18px;
   border: none;
   cursor: pointer;
