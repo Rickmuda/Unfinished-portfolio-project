@@ -13,7 +13,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export default function Saves() {
   const { user } = useLoaderData<{ user: { email: string; isAdmin: boolean } | null }>();
-  console.log('User data in component:', user); // Debug log
 
   // State to track last hovered button
   const [lastHoveredButton, setLastHoveredButton] = useState<string | null>(null);

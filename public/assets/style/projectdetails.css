@@ -1,19 +1,38 @@
-/* public/assets/style/projectdetails.css */
-
 body, html {
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Prevent scrolling */
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #2c2c2a;
 }
 
-.project-details-container {
-  max-width: 80%;
-  margin: 50px auto;
+.project-details-container, .wip-details-container {
+  display: flex;
+  max-width: 90%;
+  width: 1400px; /* Increase the fixed width */
+  margin: 0 auto;
   padding: 20px;
   border-radius: 8px;
   background-color: #fff3f331;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.right-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
 }
 
 .gallery-container {
@@ -21,12 +40,18 @@ body, html {
   align-items: center;
   justify-content: center;
   position: relative;
+  width: 100%;
+  max-width: 1200px; /* Increase the maximum width */
+  height: 500px;
+  padding: 0 50px; /* Add padding to the sides for arrows */
 }
 
 .gallery-container img {
-  max-width: 750px; /* Fixed width */
-  maxc-height: 400px; /* Fixed height */
-  object-fit: cover; /* Ensures images are properly fitted within the given dimensions */
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
   border-radius: 8px;
   position: relative;
 }
@@ -41,27 +66,45 @@ body, html {
   top: 50%;
   transform: translateY(-50%);
   padding: 10px;
+  z-index: 1;
 }
 
 .gallery-button.left {
-  left: 0;
+  left: -60px; /* Position inside the container */
 }
 
 .gallery-button.right {
-  right: 0;
+  right: -60px; /* Position inside the container */
+}
+
+h1 {
+  color: #fff3f3;
+  font-size: 36px;
+  margin-bottom: 20px;
 }
 
 p {
   color: #fff3f3;
-  font-size: 30px;
+  font-size: 18px;
   -webkit-text-stroke: #a07cff 0.5px;
+  margin-bottom: 20px;
+}
+
+.visit-button, .delete-button {
+  display: block;
+  width: 150px; /* Fixed width */
+  text-align: center;
+  background-color: #a07cff;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  text-decoration: none;
+  border-radius: 4px;
 }
 
 .delete-button {
   background-color: red;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  cursor: pointer;
-  margin-top: 20px;
+  margin-top: 10px;
 }
