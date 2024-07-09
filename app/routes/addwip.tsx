@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 // app/routes/addwip.tsx
 
 import React, { useState } from 'react';
@@ -21,33 +20,36 @@ export const action: ActionFunction = async ({ request }) => {
   const name = formData.get('name') as string;
   const category = formData.get('category') as string;
   const description = formData.get('description') as string;
+  const cover = formData.get('cover') as File;
   const gif = formData.get('gif') as File;
   const pathField = formData.get('path') as string;
+  const img1 = formData.get('img1') as File;
+  const img2 = formData.get('img2') as File;
+  const img3 = formData.get('img3') as File;
 
-  const imgFiles: File[] = [];
-  for (let i = 0; i < 5; i++) {
-    const imgFile = formData.get(`img${i}`) as File;
-    imgFiles.push(imgFile);
-  }
+  const saveFile = async (file: File) => {
+    const filename = `${Date.now()}-${file.name}`;
+    const filepath = path.join(uploadDirectory, filename);
+    await fs.promises.writeFile(filepath, Buffer.from(await file.arrayBuffer()));
+    return filename;
+  };
 
-  const imgFilenames = imgFiles.map(img => `${Date.now()}-${img.name}`);
-  const imgPaths = imgFilenames.map(filename => path.join(uploadDirectory, filename));
-
-  await Promise.all(imgFiles.map(async (img, index) => fs.promises.writeFile(imgPaths[index], Buffer.from(await img.arrayBuffer()))));
-
-  const gifFilename = `${Date.now()}-${gif.name}`;
-  const gifPath = path.join(uploadDirectory, gifFilename);
-
-  fs.writeFileSync(gifPath, Buffer.from(await gif.arrayBuffer()));
+  const coverFilename = await saveFile(cover);
+  const gifFilename = await saveFile(gif);
+  const img1Filename = await saveFile(img1);
+  const img2Filename = await saveFile(img2);
+  const img3Filename = await saveFile(img3);
 
   await prisma.wip.create({
     data: {
       name,
       category,
       description,
-      cover: imgFilenames[0], // Use the first image as cover
-      img: imgFilenames.slice(1).map(filename => `${filename}`).join(','), // Use the rest of the images
-      gif: `${gifFilename}`,
+      cover: coverFilename,
+      gif: gifFilename,
+      img1: img1Filename,
+      img2: img2Filename,
+      img3: img3Filename,
       path: pathField,
     },
   });
@@ -60,7 +62,7 @@ export function links() {
 }
 
 export default function AddWip() {
-  const [imgPreviews, setImgPreviews] = useState<(string | ArrayBuffer | null)[]>([null, null, null, null, null]);
+  const [imgPreviews, setImgPreviews] = useState<(string | ArrayBuffer | null)[]>([null, null, null, null]);
   const [gifPreview, setGifPreview] = useState<string | ArrayBuffer | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -115,20 +117,18 @@ export default function AddWip() {
             <textarea name="description" required></textarea>
           </label>
         </div>
-        {[...Array(5)].map((_, index) => (
-          <div className="form-group" key={index}>
-            <label>
-              {index === 0 ? 'Upload Cover Image' : `Upload Image ${index + 1}`}:
-              <input type="file" name={`img${index}`} accept="image/*" onChange={handleImgChange(index)} required />
-            </label>
-            {imgPreviews[index] && (
-              <div className="preview">
-                <h3>{index === 0 ? 'Cover Image Preview' : `Image ${index + 1} Preview`}:</h3>
-                <img src={imgPreviews[index]?.toString()} alt={index === 0 ? 'Cover Image Preview' : `Image ${index + 1} Preview`} />
-              </div>
-            )}
-          </div>
-        ))}
+        <div className="form-group">
+          <label>
+            Upload Cover Image (Required):
+            <input type="file" name="cover" accept="image/*" onChange={handleImgChange(0)} required />
+          </label>
+          {imgPreviews[0] && (
+            <div className="preview">
+              <h3>Cover Image Preview:</h3>
+              <img src={imgPreviews[0]?.toString()} alt="Cover Image Preview" />
+            </div>
+          )}
+        </div>
         <div className="form-group">
           <label>
             Upload GIF:
@@ -143,12 +143,48 @@ export default function AddWip() {
         </div>
         <div className="form-group">
           <label>
+            Upload Image 1:
+            <input type="file" name="img1" accept="image/*" onChange={handleImgChange(1)} required />
+          </label>
+          {imgPreviews[1] && (
+            <div className="preview">
+              <h3>Image 1 Preview:</h3>
+              <img src={imgPreviews[1]?.toString()} alt="Image 1 Preview" />
+            </div>
+          )}
+        </div>
+        <div className="form-group">
+          <label>
+            Upload Image 2:
+            <input type="file" name="img2" accept="image/*" onChange={handleImgChange(2)} required />
+          </label>
+          {imgPreviews[2] && (
+            <div className="preview">
+              <h3>Image 2 Preview:</h3>
+              <img src={imgPreviews[2]?.toString()} alt="Image 2 Preview" />
+            </div>
+          )}
+        </div>
+        <div className="form-group">
+          <label>
+            Upload Image 3:
+            <input type="file" name="img3" accept="image/*" onChange={handleImgChange(3)} required />
+          </label>
+          {imgPreviews[3] && (
+            <div className="preview">
+              <h3>Image 3 Preview:</h3>
+              <img src={imgPreviews[3]?.toString()} alt="Image 3 Preview" />
+            </div>
+          )}
+        </div>
+        <div className="form-group">
+          <label>
             Path:
             <input type="text" name="path" required />
           </label>
         </div>
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Adding...' : 'Add W.I.P.'}
+          {isSubmitting ? 'Adding...' : 'Add WIP'}
         </button>
       </Form>
     </div>

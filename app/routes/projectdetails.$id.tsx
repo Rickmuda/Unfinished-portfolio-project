@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import type { LoaderFunction, ActionFunction } from '@remix-run/node';
 import { json, redirect } from '@remix-run/node';
 import { useLoaderData, Form } from '@remix-run/react';
 import { prisma } from '../../prisma/prismaClient';
+import { getSession } from '../session';
 
 // Loader function to fetch project details
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ params, request }) => {
+  const session = await getSession(request.headers.get('Cookie'));
+  const user = session.get('user');
   const projectId = params.id;
 
   if (!projectId) {
@@ -25,16 +28,13 @@ export const loader: LoaderFunction = async ({ params }) => {
     return redirect("/projects");
   }
 
-  return json({ project });
+  return json({ project, user });
 };
 
 // Action function to handle project deletion
 export const action: ActionFunction = async ({ request, params }) => {
   const formData = await request.formData();
   const actionType = formData.get("actionType");
-
-  console.log(actionType, formData);
-  // return null;
 
   if (actionType === "delete") {
     const projectId = params.id;
@@ -48,39 +48,34 @@ export const action: ActionFunction = async ({ request, params }) => {
     await prisma.projects.delete({
       where: { id: parsedId },
     });
-    console.log("Project deleted successfully!");
-    // Adjust the redirect URL as necessary
     return redirect("/projects", {
       status: 303,
       headers: { Location: "/projects" },
     });
   }
-  return redirect("/wip");
+  return redirect("/projects");
 };
 
 // React component for project details
 export default function ProjectDetails() {
-  const { project } = useLoaderData<{
+  const { project, user } = useLoaderData<{
     project: {
       id: number;
       name: string;
-      img: string;
-      gif?: string;
       description: string;
+      gif: string;
+      cover: string;
+      img1: string;
+      img2: string;
+      img3: string;
+      path: string;
     };
+    user: { email: string, isAdmin: boolean };
   }>();
 
-  const images = project.img.split(",").map((image) => image.trim());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const galleryImages = project.gif ? [project.gif, ...images] : images;
+  const galleryImages = [project.cover, project.img1, project.img2, project.img3];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    // console.log("Gallery Images:", galleryImages);
-    // console.log("Current Image Index:", currentIndex);
-    // console.log("Current Image:", galleryImages[currentIndex]);
-  }, [currentIndex, galleryImages]);
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
@@ -96,30 +91,41 @@ export default function ProjectDetails() {
 
   return (
     <div className="project-details-container">
-      <h1>{project.name}</h1>
-      <div className="gallery-container">
-        <button onClick={handlePrev} className="gallery-button left">
-          &lt;
-        </button>
-        <img
-          src={`/uploads/${galleryImages[currentIndex]}`}
-          alt={project.name}
-        />
-        <button onClick={handleNext} className="gallery-button right">
-          &gt;
-        </button>
+      <div className="left-side">
+        <div className="gallery-container">
+          {galleryImages.length > 1 && (
+            <button onClick={handlePrev} className="gallery-button left">
+              &lt;
+            </button>
+          )}
+          {galleryImages.length > 0 && (
+            <img
+              src={`/uploads/${galleryImages[currentIndex]}`}
+              alt={`${project.name} - Image ${currentIndex + 1}`}
+            />
+          )}
+          {galleryImages.length > 1 && (
+            <button onClick={handleNext} className="gallery-button right">
+              &gt;
+            </button>
+          )}
+        </div>
+        <a href={project.path} className="visit-button">
+          Visit Project
+        </a>
+        {user?.isAdmin && (
+          <Form method="post" action={`/projectdetails/${project.id}`}>
+            <input type="hidden" name="actionType" value="delete" />
+            <button type="submit" value="delete" className="delete-button">
+              Delete Project
+            </button>
+          </Form>
+        )}
       </div>
-      <p>{project.description}</p>
-      <Form
-        method="post"
-        action={`/projectdetails/${project.id}`}
-        // onSubmit={(e) => console.log(e)}
-      >
-        <input type="hidden" name="actionType" value="delete" />
-        <button type="submit" value="delete" className="delete-button">
-          Delete Project
-        </button>
-      </Form>
+      <div className="right-side">
+        <h1>{project.name}</h1>
+        <p>{project.description}</p>
+      </div>
     </div>
   );
 }
