@@ -48,7 +48,7 @@ export default function QuotesPage() {
       </div>
 
       <div className="copyright">
-        <p>© RICK AMBERGEN <a id="rickvlogs" href="/rickvlogs" onClick={handleRickVlogsClick} style={{ cursor: 'text', textDecoration: 'none', color: 'inherit' }}>20</a>02</p>
+        <p>© RICK AMBERGEN 2002</p>
       </div>
     </div>
   );
