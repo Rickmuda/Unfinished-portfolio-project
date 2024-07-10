@@ -3,6 +3,9 @@ import type { ActionFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { Form } from '@remix-run/react';
 import { prisma } from '../../prisma/prismaClient';
+import path from 'path';
+import fs from 'fs/promises';
+import { mkdirSync, existsSync } from 'fs';
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -17,17 +20,15 @@ export const action: ActionFunction = async ({ request }) => {
   const img3 = formData.get('img3') as File;
 
   const saveFile = async (file: File) => {
-    const path = require('path');
-    const fs = require('fs');
     const uploadDirectory = path.resolve('public/uploads');
 
-    if (!fs.existsSync(uploadDirectory)) {
-      fs.mkdirSync(uploadDirectory, { recursive: true });
+    if (!existsSync(uploadDirectory)) {
+      mkdirSync(uploadDirectory, { recursive: true });
     }
 
     const filename = `${Date.now()}-${file.name}`;
     const filepath = path.join(uploadDirectory, filename);
-    await fs.promises.writeFile(filepath, Buffer.from(await file.arrayBuffer()));
+    await fs.writeFile(filepath, Buffer.from(await file.arrayBuffer()));
     return filename;
   };
 
@@ -59,33 +60,7 @@ export function links() {
 }
 
 export default function AddWip() {
-  const [imgPreviews, setImgPreviews] = useState<(string | ArrayBuffer | null)[]>([null, null, null, null]);
-  const [gifPreview, setGifPreview] = useState<string | ArrayBuffer | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleImgChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const newImgPreviews = [...imgPreviews];
-        newImgPreviews[index] = reader.result;
-        setImgPreviews(newImgPreviews);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleGifChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setGifPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
@@ -115,62 +90,32 @@ export default function AddWip() {
         <div className="form-group">
           <label>
             Upload Cover Image (Required):
-            <input type="file" name="cover" accept="image/*" onChange={handleImgChange(0)} required />
+            <input type="file" name="cover" accept="image/*" required />
           </label>
-          {imgPreviews[0] && (
-            <div className="preview">
-              <h3>Cover Image Preview:</h3>
-              <img src={imgPreviews[0]?.toString()} alt="Cover Image Preview" />
-            </div>
-          )}
         </div>
         <div className="form-group">
           <label>
             Upload GIF:
-            <input type="file" name="gif" accept="image/gif" onChange={handleGifChange} required />
+            <input type="file" name="gif" accept="image/gif" required />
           </label>
-          {gifPreview && (
-            <div className="preview">
-              <h3>GIF Preview:</h3>
-              <img src={gifPreview.toString()} alt="GIF Preview" />
-            </div>
-          )}
         </div>
         <div className="form-group">
           <label>
             Upload Image 1:
-            <input type="file" name="img1" accept="image/*" onChange={handleImgChange(1)} required />
+            <input type="file" name="img1" accept="image/*" required />
           </label>
-          {imgPreviews[1] && (
-            <div className="preview">
-              <h3>Image 1 Preview:</h3>
-              <img src={imgPreviews[1]?.toString()} alt="Image 1 Preview" />
-            </div>
-          )}
         </div>
         <div className="form-group">
           <label>
             Upload Image 2:
-            <input type="file" name="img2" accept="image/*" onChange={handleImgChange(2)} required />
+            <input type="file" name="img2" accept="image/*" required />
           </label>
-          {imgPreviews[2] && (
-            <div className="preview">
-              <h3>Image 2 Preview:</h3>
-              <img src={imgPreviews[2]?.toString()} alt="Image 2 Preview" />
-            </div>
-          )}
         </div>
         <div className="form-group">
           <label>
             Upload Image 3:
-            <input type="file" name="img3" accept="image/*" onChange={handleImgChange(3)} required />
+            <input type="file" name="img3" accept="image/*" required />
           </label>
-          {imgPreviews[3] && (
-            <div className="preview">
-              <h3>Image 3 Preview:</h3>
-              <img src={imgPreviews[3]?.toString()} alt="Image 3 Preview" />
-            </div>
-          )}
         </div>
         <div className="form-group">
           <label>
