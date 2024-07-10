@@ -44,7 +44,7 @@ Make sure to deploy the output of `npm run build`
 
 #### When worked on on different device then last commit
 
-npm i
+npm install
 
 npx prisma migrate dev
 
