@@ -1,0 +1,69 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.profile-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -20px; /* Adjust this value as needed to position the image slightly above */
+}
+
+.profile-image {
+  width: 30%;
+  height: auto;
+}
+
+.typewriter-container {
+  width: 50%;
+  text-align: left;
+  font-size: 30px;
+  color: #fff3f3;
+  line-height: 1.5;
+  background-color: #00000091;
+  padding: 20px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.typewriter-header {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.next-button {
+  background-color: #fff3f331; /* Light yellow with some transparency */
+  text-decoration: none;
+  width: 250px; /* Width of the button */
+  height: 50px; /* Height of the button */
+  border: 4px solid #A07CFF; /* Light purple */
+  margin-top: 10px;
+  color: #fff; /* Text color */
+  font-size: 20px; /* Font size */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+  font-family: VCR_OSD_MONO_1, sans-serif;
+}
+
+.next-button:hover {
+  background-color: #fff3f360;
+  border: 2px solid #895ffc;
+  transform: scale(1.1);
+}
+
+audio {
+  display: none;
+}
