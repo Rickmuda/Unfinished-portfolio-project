@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Typewriter from 'typewriter-effect';
+import '../../public/assets/style/aboutme.css';
 
 export default function AboutMe() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -41,40 +42,40 @@ export default function AboutMe() {
         if (shouldType && typewriterRef.current) {
             setShouldType(false);
             const currentString = lines[currentIndex];
-            const deleteSpeed = 2000 / currentString.length; // Calculate deleteSpeed based on string length
+            const deleteSpeed = 2000 / currentString.length; 
 
             typewriterRef.current
-                .pauseFor(100) // Pause before deleting
+                .pauseFor(100)
                 .callFunction(() => {
                     if (intervalRef.current) {
-                        clearInterval(intervalRef.current); // Stop image swapping when deleting starts
+                        clearInterval(intervalRef.current);
                     }
                     if (audioRef.current) {
-                        audioRef.current.pause(); // Ensure audio is stopped before deleting
+                        audioRef.current.pause();
                         audioRef.current.currentTime = 0;
                     }
                 })
-                .deleteAll(deleteSpeed) // Delete the current string with calculated speed
+                .deleteAll(deleteSpeed) 
                 .callFunction(() => {
                     intervalRef.current = setInterval(() => {
                         setCurrentImage((prevImage) =>
                             prevImage === images[0] ? images[1] : images[0]
                         );
-                    }, imageChangeSpeed); // Start image swapping when typing starts
+                    }, imageChangeSpeed); 
                     if (audioRef.current) {
-                        audioRef.current.play(); // Start audio when typing starts
+                        audioRef.current.play(); 
                     }
                 })
-                .typeString(lines[currentIndex]) // Type the next string
-                .pauseFor(200) // Pause after typing
+                .typeString(lines[currentIndex]) 
+                .pauseFor(200) 
                 .callFunction(() => {
                     if (intervalRef.current) {
-                        clearInterval(intervalRef.current); // Stop image swapping when typing ends
+                        clearInterval(intervalRef.current); 
                     }
-                    setCurrentImage(images[0]); // Reset to the first image
+                    setCurrentImage(images[0]); 
                     if (audioRef.current) {
-                        audioRef.current.pause(); // Stop audio when typing ends
-                        audioRef.current.currentTime = 0; // Reset audio to start
+                        audioRef.current.pause(); 
+                        audioRef.current.currentTime = 0; 
                     }
                 })
                 .start();
@@ -82,30 +83,32 @@ export default function AboutMe() {
     }, [currentIndex, shouldType]);
 
     return (
-        <div>
-            <img src={currentImage} alt="Profile" style={{ width: '150px', height: '150px' }} />
-            <Typewriter
-                onInit={(typewriter) => {
-                    typewriterRef.current = typewriter;
-                    typewriter
-                        .typeString(lines[currentIndex])
-                        .pauseFor(200)
-                        .callFunction(() => {
-                            console.log('Pausing for button press');
-                        })
-                        .pauseFor(100) // Pause to wait for button press
-                        .callFunction(() => {
-                            console.log('Continuing after button press');
-                        })
-                        .start();
-                }}
-                options={{
-                    autoStart: true,
-                    loop: false, // Change to false to avoid looping during the test
-                    delay: 50, // Typing speed, lower is faster
-                }}
-            />
-            <button onClick={handleNextStep}>
+        <div className="container">
+            <img src={currentImage} alt="Profile" className="profile-image" />
+            <div className="typewriter-container">
+                <Typewriter
+                    onInit={(typewriter) => {
+                        typewriterRef.current = typewriter;
+                        typewriter
+                            .typeString(lines[currentIndex])
+                            .pauseFor(200)
+                            .callFunction(() => {
+                                console.log('Pausing for button press');
+                            })
+                            .pauseFor(100) 
+                            .callFunction(() => {
+                                console.log('Continuing after button press');
+                            })
+                            .start();
+                    }}
+                    options={{
+                        autoStart: true,
+                        loop: false, 
+                        delay: 50, 
+                    }}
+                />
+            </div>
+            <button onClick={handleNextStep} className="next-button">
                 Next
             </button>
             <audio ref={audioRef} src="../../public/assets/audio/typing-sound.wav" />
