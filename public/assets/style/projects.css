@@ -44,8 +44,7 @@ body {
 .button {
   background-color: #fff3f331; /* Light yellow with some transparency */
   text-decoration: none;
-  width: 200px; /* Width of the button */
-  height: 50px; /* Height of the button */
+  width: 50%; /* Width of the button */
   border: 3px solid #A07CFF; /* Light purple */
   color: #fff3f3; /* Text color */
   font-size: 20px; /* Font size */
