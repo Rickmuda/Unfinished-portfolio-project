@@ -11,6 +11,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const user = session.get('user');
   const projectId = params.id;
 
+  
   if (!projectId) {
     return redirect("/projects");
   }
@@ -30,6 +31,11 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   return json({ project, user });
 };
+
+// Styling links for the page
+export function links() {
+  return [{ rel: 'stylesheet', href: '/assets/styles/projectdetails.css' }];
+}
 
 // Action function to handle project deletion
 export const action: ActionFunction = async ({ request, params }) => {
@@ -130,7 +136,4 @@ export default function ProjectDetails() {
   );
 }
 
-// Styling links for the page
-export function links() {
-  return [{ rel: 'stylesheet', href: '/assets/style/projectdetails.css' }];
-}
+

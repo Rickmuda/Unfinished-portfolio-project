@@ -16,7 +16,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export function links() {
-  return [{ rel: 'stylesheet', href: '/assets/style/projects.css' }];
+  return [{ rel: 'stylesheet', href: '/assets/styles/projects.css' }];
 }
 
 export default function WipProjects() {
