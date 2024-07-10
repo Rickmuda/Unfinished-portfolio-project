@@ -1,13 +1,41 @@
 import React, { useState } from 'react';
-import type { ActionFunction } from '@remix-run/node';
+import type { ActionFunction, LoaderFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
-import { Form } from '@remix-run/react';
+import { Form, useLoaderData } from '@remix-run/react';
 import { prisma } from '../../prisma/prismaClient';
 import path from 'path';
 import fs from 'fs/promises';
 import { mkdirSync, existsSync } from 'fs';
 
+const getSession = async (request) => {
+  // Dummy implementation of session check
+  const cookie = request.headers.get("Cookie");
+  if (!cookie) return null;
+
+  // You can use your session management logic here to return session
+  // For demonstration, assuming if cookie exists, user is authenticated
+  return { userId: 1 };
+};
+
+const isAuthenticated = async (request) => {
+  const session = await getSession(request);
+  return session && session.userId;
+};
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const authenticated = await isAuthenticated(request);
+  if (!authenticated) {
+    return redirect('/wip');
+  }
+  return null; // User is authenticated, continue to the page
+};
+
 export const action: ActionFunction = async ({ request }) => {
+  const authenticated = await isAuthenticated(request);
+  if (!authenticated) {
+    return redirect('/wip');
+  }
+
   const formData = await request.formData();
   const name = formData.get('name') as string;
   const category = formData.get('category') as string;
@@ -56,7 +84,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export function links() {
-  return [{ rel: 'stylesheet', href: '/assets/style/addprojects.css' }];
+  return [{ rel: 'stylesheet', href: '/assets/styles/addprojects.css' }];
 }
 
 export default function AddWip() {
