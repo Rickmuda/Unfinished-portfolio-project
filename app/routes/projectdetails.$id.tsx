@@ -11,7 +11,6 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   const user = session.get('user');
   const projectId = params.id;
 
-  
   if (!projectId) {
     return redirect("/projects");
   }
@@ -79,7 +78,8 @@ export default function ProjectDetails() {
     user: { email: string, isAdmin: boolean };
   }>();
 
-  const galleryImages = [project.cover, project.img1, project.img2, project.img3];
+  // Ensure gif is the first image
+  const galleryImages = [project.gif, project.cover, project.img1, project.img2, project.img3];
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -99,26 +99,24 @@ export default function ProjectDetails() {
     <div className="project-details-container">
       <div className="left-side">
         <div className="gallery-container">
-          {galleryImages.length > 1 && (
-            <button onClick={handlePrev} className="gallery-button left">
-              &lt;
-            </button>
-          )}
           {galleryImages.length > 0 && (
             <img
               src={`/uploads/${galleryImages[currentIndex]}`}
               alt={`${project.name} - Image ${currentIndex + 1}`}
             />
           )}
-          {galleryImages.length > 1 && (
-            <button onClick={handleNext} className="gallery-button right">
-              &gt;
-            </button>
-          )}
         </div>
-        <a href={project.path} className="visit-button">
-          Visit Project
-        </a>
+        <div className="button-container">
+          <button onClick={handlePrev} className="gallery-button left">
+            &lt;
+          </button>
+          <a href={project.path} className="visit-button">
+            Visit Project
+          </a>
+          <button onClick={handleNext} className="gallery-button right">
+            &gt;
+          </button>
+        </div>
         {user?.isAdmin && (
           <Form method="post" action={`/projectdetails/${project.id}`}>
             <input type="hidden" name="actionType" value="delete" />
@@ -135,5 +133,3 @@ export default function ProjectDetails() {
     </div>
   );
 }
-
-
