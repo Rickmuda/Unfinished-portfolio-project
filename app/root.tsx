@@ -1,4 +1,4 @@
-import { Links,useNavigate, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from "@remix-run/react";
+import { Links, useNavigate, Meta, Outlet, Scripts, ScrollRestoration, useLocation } from "@remix-run/react";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const links = () => {
@@ -38,6 +38,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 const BackButton = () => {
   const navigate = useNavigate();
   const handleClick = () => {
+    console.log("Back button clicked"); // Debugging
     navigate(-1);
   };
 
@@ -50,6 +51,7 @@ const BackButton = () => {
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { exclude } = useExclusion();
+  console.log("Exclude state in Layout:", exclude); // Debugging
   return (
     <>
       {!exclude && <BackButton />}
@@ -64,6 +66,7 @@ export default function App() {
 
   useEffect(() => {
     const excludedPaths = ['/', '/mainscreen'];
+    console.log("Current location:", location.pathname); // Debugging
     if (excludedPaths.includes(location.pathname)) {
       setExclude(true);
     } else {

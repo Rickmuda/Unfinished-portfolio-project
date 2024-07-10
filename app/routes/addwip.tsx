@@ -1,19 +1,8 @@
-// app/routes/addwip.tsx
-
 import React, { useState } from 'react';
 import type { ActionFunction } from '@remix-run/node';
 import { redirect } from '@remix-run/node';
 import { Form } from '@remix-run/react';
 import { prisma } from '../../prisma/prismaClient';
-import fs from 'fs';
-import path from 'path';
-import styles from '../../public/assets/style/addprojects.css';
-
-const uploadDirectory = path.resolve('public/uploads');
-
-if (!fs.existsSync(uploadDirectory)) {
-  fs.mkdirSync(uploadDirectory, { recursive: true });
-}
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -28,6 +17,14 @@ export const action: ActionFunction = async ({ request }) => {
   const img3 = formData.get('img3') as File;
 
   const saveFile = async (file: File) => {
+    const path = require('path');
+    const fs = require('fs');
+    const uploadDirectory = path.resolve('public/uploads');
+
+    if (!fs.existsSync(uploadDirectory)) {
+      fs.mkdirSync(uploadDirectory, { recursive: true });
+    }
+
     const filename = `${Date.now()}-${file.name}`;
     const filepath = path.join(uploadDirectory, filename);
     await fs.promises.writeFile(filepath, Buffer.from(await file.arrayBuffer()));
@@ -58,7 +55,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [{ rel: 'stylesheet', href: '/assets/style/addprojects.css' }];
 }
 
 export default function AddWip() {
@@ -92,8 +89,6 @@ export default function AddWip() {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1000)); // simulate server processing delay
-    setIsSubmitting(false);
   };
 
   return (

@@ -4,8 +4,6 @@ import { useLoaderData, Link } from '@remix-run/react';
 import { prisma } from '../../prisma/prismaClient';
 import { getSession } from '../session';
 
-import styles from "../../public/assets/style/projects.css";
-
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get('Cookie'));
   const user = session.get('user');
@@ -16,7 +14,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [{ rel: 'stylesheet', href: '/assets/style/projects.css' }];
 }
 
 export default function Projects() {

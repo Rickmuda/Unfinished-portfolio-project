@@ -4,8 +4,6 @@ import type { LoaderFunction } from '@remix-run/node';
 import { json } from '@remix-run/node';
 import { useLoaderData, Link } from '@remix-run/react';
 
-import styles from "../../public/assets/style/projects.css";
-
 const prisma = new PrismaClient(); // Initialize Prisma client
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -18,7 +16,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [{ rel: 'stylesheet', href: '/assets/style/projects.css' }];
 }
 
 export default function WipProjects() {
