@@ -1,17 +1,17 @@
 import { useState, useRef, useEffect } from 'react';
 import Typewriter from 'typewriter-effect';
-import '../../public/assets/style/aboutme.css';
+import '../../public/assets/styles/aboutme.css';
 
 export default function AboutMe() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [shouldType, setShouldType] = useState(true);
     const [currentImage, setCurrentImage] = useState('../../public/assets/image/self-image-1.png');
-    const imageChangeSpeed = 300; // Speed in milliseconds
+    const imageChangeSpeed = 100; // Speed in milliseconds
     const typewriterRef = useRef<any>(null);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const lines = [
-        'Greetings',
+        'Greetings.',
         'My name is Rick Ambergen, and I am a 22-year-old student at Alfa-College Groningen.',
         'I am currently studying Software Development, currently in my second year but with summer vacation coming up I will go to my third year.',
         'My favorite parts about software development are the problem-solving and the creativity.',

@@ -1,7 +1,7 @@
 import { LoaderFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { getSession } from "../session";
-import "../../public/assets/style/saves.css"; // Make sure to import the CSS file
+import "../../public/assets/styles/saves.css"; // Make sure to import the CSS file
 import { useState } from "react"; // Import useState hook
 
 export const loader: LoaderFunction = async ({ request }) => {

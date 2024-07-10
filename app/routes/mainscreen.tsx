@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import "../../public/assets/style/index.css";
+import "../../public/assets/styles/index.css";
 
 export default function QuotesPage() {
 

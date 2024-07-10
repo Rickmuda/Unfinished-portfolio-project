@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import '../../public/assets/style/ibmpc.css';
+import '../../public/assets/styles/ibmpc.css';
 
 interface IBMPCProps {
   parent: HTMLElement;

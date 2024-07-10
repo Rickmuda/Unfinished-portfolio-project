@@ -3,7 +3,7 @@ import { Form, useActionData } from '@remix-run/react';
 import { prisma } from '../../prisma/prismaClient';
 import { commitSession, getSession } from '../session';
 
-import "../../public/assets/style/login.css"; // Import the CSS file
+import "../../public/assets/styles/login.css"; // Import the CSS file
 
 type ActionData = {
   error?: string;
