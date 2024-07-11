@@ -2,7 +2,15 @@ import { Links, useNavigate, Meta, Outlet, Scripts, ScrollRestoration, useLocati
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 export const links = () => {
-  return [{ rel: "stylesheet", href: "/assets/styles/root.css" }];
+  return [
+    {
+      rel: "stylesheet",
+      href: "/assets/styles/responsive.css",
+      media: "(max-width: 768px)"
+    },
+    { rel: "stylesheet", href: "/assets/styles/root.css" },
+
+  ];
 };
 
 const ExclusionContext = createContext<{
