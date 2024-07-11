@@ -1,0 +1,104 @@
+@media (max-width: 768px) {
+
+    /*Login/logout button*/
+    .auth-link-container {
+        display: none !important;
+    }
+  
+    /*Backbutton*/
+    .back-button {
+        display: none !important;
+    }
+  
+    /*Saves*/
+    .image-container {
+        display: none !important;
+    }
+  
+    /* Ensuring the image inside the container is also hidden */
+    .image-container img {
+        display: none !important;
+    }
+  
+    .profile-image {
+        width: 50% !important;
+        height: auto !important;
+    }
+  
+    .typewriter-container {
+        width: 40% !important;
+        height: auto !important;
+        font-size: 15px !important;
+    }
+  
+    .next-button {
+        width: 125px !important;
+        height: 25px !important;
+        border: 2px solid #A07CFF !important;
+        font-size : 12px !important;
+    }
+  
+    .next-button:hover {
+        background-color: #fff3f331 !important;
+        border: 2px solid #A07CFF !important;
+    }
+
+    .project-image-container {
+        height: 20px !important;
+        width: auto !important;
+    }
+
+    h2 {
+        font-size: 30px !important;
+    }
+
+    h1 {
+        font-size: 30px !important;
+    }
+    .contact-container {
+        display: flex;
+        flex-direction: column; /* Keeps the form and social media links stacked vertically */
+        align-items: center; /* Centers the elements within the container */
+        width: 100%; /* Ensures the container takes the full width for responsiveness */
+    }
+    
+    /* Container for the form */
+    .form-container {
+        display: none;
+    }
+    
+    /* Styles for the form inside the form-container */
+    .contact-form {
+        display: none;
+    }
+
+    .sendbutton {
+        display: none;
+    }
+
+    .contactme {
+        display: none;
+    }
+
+    label {
+        display: none;
+    }
+    
+    /* Styling for the social media links container */
+.social-media-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows icons to wrap to the next line */
+    justify-content: center; /* Changes from space-around to center for better alignment */
+    align-items: center; /* Ensures icons are aligned centrally vertically */
+    width: 100% !important; /* Adjusted if necessary for alignment */
+    gap: 0px !important; /* Adjusted for aesthetic spacing */
+}
+
+.social-media-links {
+    display: flex;
+    flex-wrap: wrap; /* Allows links to wrap within the container */
+    justify-content: center; /* Ensures that the icons are centered within their container */
+    gap: 8px; /* Space between icons adjusted for aesthetic spacing */
+}
+    }
+  

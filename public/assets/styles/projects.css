@@ -4,7 +4,6 @@ body {
   margin: 0;
   padding: 0;
   color: #fff3f3;
-  font-size: 50px;
   -webkit-text-stroke: #a07cff 0.2px;
   font-family: VCR_OSD_MONO_1, sans-serif;
   text-align: center;
@@ -23,6 +22,7 @@ body {
 .project-card {
   padding: 10px;
   border-radius: 8px;
+  font-size : 50px;
 }
 
 .project-image-container {

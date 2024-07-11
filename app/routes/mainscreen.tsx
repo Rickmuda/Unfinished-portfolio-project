@@ -39,7 +39,7 @@ export default function QuotesPage() {
     <div>
       <div className="logo-container">
         <div className="logo">
-          <img src="./public/assets/image/rickambergen.gif" alt="Rick Ambergen" />
+          <img src="/assets/image/rickambergen.gif" alt="Rick Ambergen" />
         </div>
       </div>
 

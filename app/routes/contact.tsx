@@ -39,7 +39,7 @@ export default function Contact() {
     <div className="contact-container">
       <div className="form-container">
         <Form method="post" className="contact-form">
-          <h2>Contact Me</h2>
+          <h2 className="contactme">Contact Me</h2>
           {actionData?.success ? (
             <p>Email sent successfully!</p>
           ) : (
@@ -57,7 +57,7 @@ export default function Contact() {
             Message:
             <textarea name="message" required />
           </label>
-          <button type="submit">Send</button>
+          <button className="sendbutton" type="submit">Send</button>
         </Form>
       </div>
       <div className="social-media-container">

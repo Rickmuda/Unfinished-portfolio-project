@@ -41,7 +41,7 @@ export default function Saves() {
         </div>
         <div className="image-container">
           <img className="me-gif"
-            src="../../public/assets/image/me.gif"
+            src="/assets/image/me.gif"
             alt="Placeholder"
           />
           <p className="hovered-text">{lastHoveredButton || ''}</p>

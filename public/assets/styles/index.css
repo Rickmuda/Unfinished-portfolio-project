@@ -37,21 +37,6 @@ body {
   font-size: 16px;
 }
 
-@media (max-width: 768px) {
-  .logo-container {
-    margin-top: 30px;
-    max-width: 235px;
-  }
-
-  .continue {
-    margin-top: 100px;
-  }
-
-  .copyright {
-    margin-top: 250px;
-  }
-}
-
 /* Character slowdown */
 @keyframes slowDown {
   0% { background-position: 0 0; }
