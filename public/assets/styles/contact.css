@@ -52,6 +52,7 @@
   transition: background-color 0.3s ease, transform 0.3s ease;
   font-family: VCR_OSD_MONO_1, sans-serif;
   align-items: center;
+  cursor: pointer;
 }
 
 .contact-form button:hover {
@@ -86,3 +87,4 @@
   transform: scale(1.2);
   color: #895ffc;
 }
+

@@ -12,8 +12,8 @@ export const sendEmail = async (name: string, email: string, message: string) =>
   });
 
   const mailOptions = {
-    from: email,
-    to: process.env.SMTP_USER,
+    from: process.env.SMTP_USER,
+    to: "rickmudaportfolio@gmail.com",
     subject: `Contact Form Submission from ${name}`,
     text: message,
     html: `<p>You have a new contact form submission</p>
