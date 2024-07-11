@@ -20,7 +20,7 @@ export default function AboutMe() {
         'But I am always open to learning new things, and I am always looking for new challenges.',
         'And in my spare time, I like to play video games, watch movies, listen to music and play trading card games.',
         'My favorite game is Bloodborne, my favorite movie is Spiderman into the spiderverse and my favorite artist is MF DOOM.',
-        'Well that is about all to say about me',
+        'Well that is about all to say about me.',
         'Thank you for your time and I hope you have a great day!'
     ];
 
@@ -42,7 +42,6 @@ export default function AboutMe() {
         if (shouldType && typewriterRef.current) {
             setShouldType(false);
             const currentString = lines[currentIndex];
-            const deleteSpeed = 2000 / currentString.length; 
 
             typewriterRef.current
                 .pauseFor(100)
@@ -55,27 +54,27 @@ export default function AboutMe() {
                         audioRef.current.currentTime = 0;
                     }
                 })
-                .deleteAll(deleteSpeed) 
+                .deleteAll(0) // Delete immediately
                 .callFunction(() => {
                     intervalRef.current = setInterval(() => {
                         setCurrentImage((prevImage) =>
                             prevImage === images[0] ? images[1] : images[0]
                         );
-                    }, imageChangeSpeed); 
+                    }, imageChangeSpeed);
                     if (audioRef.current) {
-                        audioRef.current.play(); 
+                        audioRef.current.play();
                     }
                 })
-                .typeString(lines[currentIndex]) 
-                .pauseFor(200) 
+                .typeString(lines[currentIndex])
+                .pauseFor(200)
                 .callFunction(() => {
                     if (intervalRef.current) {
-                        clearInterval(intervalRef.current); 
+                        clearInterval(intervalRef.current);
                     }
-                    setCurrentImage(images[0]); 
+                    setCurrentImage(images[0]);
                     if (audioRef.current) {
-                        audioRef.current.pause(); 
-                        audioRef.current.currentTime = 0; 
+                        audioRef.current.pause();
+                        audioRef.current.currentTime = 0;
                     }
                 })
                 .start();
@@ -95,7 +94,7 @@ export default function AboutMe() {
                             .callFunction(() => {
                                 console.log('Pausing for button press');
                             })
-                            .pauseFor(100) 
+                            .pauseFor(100)
                             .callFunction(() => {
                                 console.log('Continuing after button press');
                             })
@@ -103,8 +102,8 @@ export default function AboutMe() {
                     }}
                     options={{
                         autoStart: true,
-                        loop: false, 
-                        delay: 50, 
+                        loop: false,
+                        delay: 50,
                     }}
                 />
             </div>
