@@ -66,39 +66,55 @@ export default function Contact() {
           <a href="https://twitter.com/Rick_rickerd" target="_blank" rel="noopener noreferrer">
           <i className="fa-brands fa-twitter"></i>
           </a>
-          <a href="https://www.linkedin.com/in/rick-ambergen-30b73a29a/" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-linkedin"></i>
-          </a>
-          <a href="https://github.com/MudaIsCarry" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-github"></i>
-          </a>
-          <a href="https://www.youtube.com/channel/UCHSimkVEkXs0Xp1U4nInA0w" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-youtube"></i>
-          </a>
+
           <a href="https://www.instagram.com/rick_muda/" target="_blank" rel="noopener noreferrer">
             <i className="fab fa-instagram"></i>
           </a>
-          <a href="https://codepen.io/mudaiscarry" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-codepen"></i>
-          </a>
-          <a href="https://open.spotify.com/user/rick_rickerd_rickman" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-spotify"></i>
-          </a>
-          <a href="https://steamcommunity.com/id/rick_muda/" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-steam"></i>
-          </a>
+
           <a href="https://www.tiktok.com/@rick_muda" target="_blank" rel="noopener noreferrer">
             <i className="fab fa-tiktok"></i>
           </a>
-          <a href="https://www.twitch.tv/mudaiscarry" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-twitch"></i>
+
+          <a href="https://www.youtube.com/channel/UCHSimkVEkXs0Xp1U4nInA0w" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-youtube"></i>
           </a>
+
+          <a href="https://www.linkedin.com/in/rick-ambergen-30b73a29a/" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-linkedin"></i>
+          </a>
+
+          <a href="https://github.com/MudaIsCarry" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-github"></i>
+          </a>
+
+          <a href="https://codepen.io/mudaiscarry" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-codepen"></i>
+          </a>
+
+          <a href="mailto:rickmudaportfolio@gmail.com" target="_blank" rel="noopener noreferrer">
+            <i className="fas fa-envelope"></i>
+          </a>
+
+          <a href="https://open.spotify.com/user/rick_rickerd_rickman" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-spotify"></i>
+          </a>
+
+          <a href="https://steamcommunity.com/id/rick_muda/" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-steam"></i>
+          </a>
+
           <a href="https://dsc.bio/MudaIsCarry" target="_blank" rel="noopener noreferrer">
             <i className="fab fa-discord"></i>
           </a>
-          <a href="https://soundcloud.com/rick-ambergen" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-soundcloud"></i>
+          
+          <a href="https://www.twitch.tv/mudaiscarry" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-twitch"></i>
           </a>
+
+
+
+
+
         </div>
       </div>
     </div>
