@@ -126,7 +126,10 @@ p {
   transition: background-color 0.3s ease, transform 0.3s ease;
   font-family: VCR_OSD_MONO_1, sans-serif;
   margin: 10px;
-  display: flex;
+
+/* Tijdelijk totdat ik de paths werkend heb gekregen */
+  display: none;
+  
   justify-content: center;
   align-items: center;
   cursor: pointer;
