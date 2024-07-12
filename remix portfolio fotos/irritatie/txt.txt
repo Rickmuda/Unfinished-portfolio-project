@@ -1,0 +1,4 @@
+name : Irritating Webpage
+description : 
+For the second project in my school year I was tasked to team up with a classmate.
+Our assignment was to research, design and create the most annoying webpage we could think off.

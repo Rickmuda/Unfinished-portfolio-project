@@ -1,0 +1,4 @@
+name : Spidermen forum
+description : 
+For the second php based project I was tasked with creating a fully functional forum. 
+This was around the time Spiderman : Across the spiderverse released. So I was highly motivated to create a spiderman inspired forum.
