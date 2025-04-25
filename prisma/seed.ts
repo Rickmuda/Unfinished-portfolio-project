@@ -2,9 +2,9 @@ import { PrismaClient } from '@prisma/client';
 
 const seedData = [
   {
-    username: 'rick_muda',
-    password: 'M08B@DKhZU9V',
-    email: 'rickambergen25@gmail.com',
+    username: '',
+    password: '',
+    email: '',
     is_admin: 1,
   },
 ];
